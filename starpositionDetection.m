@@ -13,12 +13,9 @@ imgSize2 = size(Istart,2);
 
 images = dir('*.JPG');
 lastPos = [0,0];
-maskOffsetX = 200;
-maskOffsetY = 100;
 
-hFig = figure;
+
 hAx  = axes;
-
 imshow(Istart,'Parent', hAx);
 hold on;
 
