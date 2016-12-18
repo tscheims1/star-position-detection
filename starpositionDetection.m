@@ -1,12 +1,15 @@
-%% Template Matching Script for detecting the Positions of stars
+% Template Matching Script for detecting the Positions of stars
 
 clear;close all; clc;
 
 I = imread('template_star.png');
-I = rgb2gray(I); 							
-templateInfo = imfinfo('TL_27_IMG_0079.JPG');
+I = rgb2gray(I); 
+firstImage = 'TL_27_IMG_0079.JPG';
+templateInfo = imfinfo(firstImage);
 templateTime = datetime(templateInfo.DateTime,'InputFormat','yyyy:MM:dd HH:mm:ss');
-Istart = I;
+Istart = imread(firstImage);
+imgSize1 = size(Istart,1);
+imgSize2 = size(Istart,2);
 
 images = dir('*.JPG');
 lastPos = [0,0];
@@ -17,6 +20,7 @@ hFig = figure;
 hAx  = axes;
 
 imshow(Istart,'Parent', hAx);
+hold on;
 
 
 %a static local mask for star detection
@@ -31,7 +35,7 @@ maskOffset = [0,200,-100,100;       %star 0  - 10
 
 tic
 data = zeros(size(images,1),5);
-for i=1:50
+for i=1:size(images,1)
     disp(fprintf('%i / %i',i,(size(images,1))));
     
 	%read a new star image file
